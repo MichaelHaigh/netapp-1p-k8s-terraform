@@ -3,23 +3,23 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = ">= 5.66.0"
+      version = "~> 5.66.0"
     }
     cloudinit = {
       source = "hashicorp/cloudinit"
-      version = ">= 2.3.5"
+      version = "~> 2.3.5"
     }
     external = {
       source = "hashicorp/external"
-      version = ">= 2.3.4"
+      version = "~> 2.3.4"
     }
     http = {
       source = "hashicorp/http"
-      version = ">= 3.4.5"
+      version = "~> 3.4.5"
     }
     random = {
       source = "hashicorp/random"
-      version = ">= 3.6.3"
+      version = "~> 3.6.3"
     }
   }
 }

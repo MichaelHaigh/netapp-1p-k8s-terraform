@@ -3,19 +3,19 @@ terraform {
   required_providers {
     google = {
       source = "hashicorp/google"
-      version = ">= 6.2.0"
+      version = "~> 6.2.0"
     }
     google-beta = {
       source = "hashicorp/google-beta"
-      version = ">= 6.2.0"
+      version = "~> 6.2.0"
     }
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = ">= 2.32.0"
+      version = "~> 2.32.0"
     }
     random = {
       source = "hashicorp/random"
-      version = ">= 3.6.3"
+      version = "~> 3.6.3"
     }
   }
 }
