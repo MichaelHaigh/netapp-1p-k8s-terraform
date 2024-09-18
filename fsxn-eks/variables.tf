@@ -55,6 +55,16 @@ variable "eks_addons" {
   description = "A list of addon names and versions to install"
 }
 
+# FSxN Settings
+variable "fsxn_storage_capacity" {
+  type        = number
+  description = "The storage capacity (in GiB) of the file system"
+}
+variable "fsxn_throughput_capacity" {
+  type        = number
+  description = "The throughput capacity (in MBps) for the file system. Valid values are 128, 256, 512, 1024, 2048, and 4096"
+}
+
 # Authorized Networks
 variable "authorized_networks" {
   type        = list(object({ cidr_block = string, display_name = string }))

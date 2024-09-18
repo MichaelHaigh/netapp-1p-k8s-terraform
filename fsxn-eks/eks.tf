@@ -5,7 +5,6 @@ resource "aws_eks_cluster" "eks_cluster" {
   version  = var.eks_kubernetes_version
 
   vpc_config {
-    # security_group_ids      = [aws_security_group.eks_cluster.id, aws_security_group.eks_nodes.id]
     subnet_ids              = flatten([aws_subnet.eks_public[*].id, aws_subnet.eks_private[*].id])
     endpoint_private_access = true
     endpoint_public_access  = true

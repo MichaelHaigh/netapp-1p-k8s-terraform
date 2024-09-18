@@ -51,10 +51,10 @@ resource "aws_secretsmanager_secret_version" "svm_password" {
 }
 
 resource "aws_fsx_ontap_file_system" "eksfs" {
-  storage_capacity    = 2048
+  storage_capacity    = var.fsxn_storage_capacity
   subnet_ids          = aws_subnet.eks_private[*].id
   deployment_type     = "MULTI_AZ_1"
-  throughput_capacity = 512
+  throughput_capacity = var.fsxn_throughput_capacity
   preferred_subnet_id = aws_subnet.eks_private[0].id
   security_group_ids  = [aws_security_group.fsxn_sg.id]
   fsx_admin_password = random_string.fsx_password.result

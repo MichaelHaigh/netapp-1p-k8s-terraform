@@ -2,7 +2,7 @@
 
 This repository contains Terraform code which creates NetAppp 1st-Party Cloud Storage with the corresponding hyperscaler Kubernetes-as-a-Service offering:
 
-* Amazon [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) with [FSx for NetApp ONTAP](https://aws.amazon.com/fsx/netapp-ontap/)
+* [Amazon Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) with [FSx for NetApp ONTAP](https://aws.amazon.com/fsx/netapp-ontap/)
 * [Azure Kubernetes Service](https://azure.microsoft.com/products/kubernetes-service) with [Azure NetApp Files](https://azure.microsoft.com/products/netapp)
 * [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) with [Google Cloud NetApp Volumes](https://cloud.google.com/netapp-volumes)
 
@@ -24,7 +24,7 @@ Simply change into the hyperscaler directory of your choice, and initialize terr
 terraform init
 ```
 
-The provider version in each `main.tf` file is constrained by the `~>` operator to ensure code compatibility, however feel free to change to a different operator if required.
+the provider version in each `main.tf` file is constrained by the `~>` operator to ensure code compatibility, however feel free to change to a different operator if needed.
 
 Next, update the `default.tfvars` file to have the deployment parameters of choosing. Additional information on their meanings can be found in the `variables.tf` file.
 
