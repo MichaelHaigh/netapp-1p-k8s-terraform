@@ -81,7 +81,3 @@ variable "vscrd_release" {
   type        = string
   description = "The volume snapshot CRDs github release URL"
 }
-variable "ebscsi_release" {
-  type        = string
-  description = "The EBS-CSI driver github release URL"
-}

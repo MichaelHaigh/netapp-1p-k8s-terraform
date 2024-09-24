@@ -18,7 +18,6 @@ aks_trident_version     = "24.06.1"
 
 # Node Pool Settings
 aks_node_count = 2
-#aks_image_size = "Standard_D2_v2"
 aks_image_size = "Standard_D4s_v3"
 
 # ANF Settings

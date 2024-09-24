@@ -44,4 +44,3 @@ authorized_networks = [
 
 # Outputs
 vscrd_release  = "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-5.0"
-ebscsi_release = "https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/examples/kubernetes/dynamic-provisioning/manifests"

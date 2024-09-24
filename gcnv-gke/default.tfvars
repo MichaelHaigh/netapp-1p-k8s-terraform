@@ -15,8 +15,8 @@ gke_ip_range_pods     = "172.18.0.0/16"
 
 # GKE Cluster Settings
 gke_kubernetes_version = "1.29.8-gke.1031000"
-gke_private_cluster    = true
 gke_trident_version    = "24.06.1"
+gke_private_cluster    = true
 
 # Node Pool Settings
 gke_machine_type       = "e2-medium"
