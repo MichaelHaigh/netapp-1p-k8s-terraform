@@ -5,6 +5,7 @@ gcp_project        = "astracontroltoolkitdev"
 gcp_project_number = "239048101169"
 gcp_region         = "us-west4"
 gcp_zones          = ["us-west4-b", "us-west4-c"]
+creator_label      = "mhaigh"
 
 # VPC Settings
 gke_subnetwork_cidr   = "10.10.0.0/23"

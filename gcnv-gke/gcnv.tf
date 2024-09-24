@@ -10,7 +10,7 @@ resource "google_netapp_storage_pool" "gcnv_pool" {
   network       = google_compute_network.gke_network.id
 
   labels = {
-      creator = "mhaigh"
+      creator = var.creator_label
   }
 
   depends_on = [

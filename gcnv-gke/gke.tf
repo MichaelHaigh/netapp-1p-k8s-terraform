@@ -48,12 +48,12 @@ module "gke" {
 
   node_pools_labels = {
     all = {
-      creator = "mhaigh"
+      creator = var.creator_label
     }
   }
 
   cluster_resource_labels = {
-      creator = "mhaigh"
+      creator = var.creator_label
   }
 }
 

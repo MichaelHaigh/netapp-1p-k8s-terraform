@@ -23,6 +23,10 @@ variable "gcp_zones" {
   type        = list(string)
   description = "A list of the GCP Zone(s)"
 }
+variable "creator_label" {
+  type        = string
+  description = "The value to apply to the 'creator' key label"
+}
 
 # VPC Settings
 variable "gke_subnetwork_cidr" {
