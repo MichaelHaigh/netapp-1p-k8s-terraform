@@ -1,4 +1,4 @@
-# NetAppp 1st Party Cloud Storage and Kubernetes Terraform IaC
+# NetApp 1st Party Cloud Storage and Kubernetes Terraform IaC
 
 This repository contains Terraform code which creates NetAppp 1st-Party Cloud Storage with the corresponding hyperscaler Kubernetes-as-a-Service offering:
 

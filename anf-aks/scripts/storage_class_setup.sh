@@ -38,6 +38,8 @@ spec:
   - "${anf_capacity_pool}"
   credentials:
     name: backend-tbc-anf-secret
+  virtualNetwork: ${aks_network_name}
+  subnet: ${aks_subnet_name}
 EOF
 }
 

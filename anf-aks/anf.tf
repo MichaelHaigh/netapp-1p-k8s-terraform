@@ -5,6 +5,7 @@ resource "azurerm_netapp_account" "aks_netapp_account" {
 
   tags = {
     environment = "${terraform.workspace}"
+    creator     = "${var.creator_tag}"
   }
 }
 
@@ -18,5 +19,6 @@ resource "azurerm_netapp_pool" "aks_anf_pool" {
 
   tags = {
     environment = "${terraform.workspace}"
+    creator     = "${var.creator_tag}"
   }
 }

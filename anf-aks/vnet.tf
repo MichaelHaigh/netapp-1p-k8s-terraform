@@ -6,6 +6,7 @@ resource "azurerm_virtual_network" "aks_vnet" {
 
   tags = {
     environment = "${terraform.workspace}"
+    creator     = "${var.creator_tag}"
   }
 }
 

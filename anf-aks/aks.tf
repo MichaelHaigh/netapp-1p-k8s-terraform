@@ -26,6 +26,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
   tags = {
     environment = "${terraform.workspace}"
+    creator     = "${var.creator_tag}"
   }
 
   network_profile {
@@ -44,6 +45,8 @@ resource "terraform_data" "trident-install" {
     command = "/bin/bash ./scripts/storage_class_setup.sh"
     environment = {
       aks_cluster_name      = azurerm_kubernetes_cluster.aks_cluster.name
+      aks_network_name      = azurerm_virtual_network.aks_vnet.name
+      aks_subnet_name       = azurerm_subnet.aks_anf_subnet.name
       aks_rg_name           = azurerm_resource_group.aks_resource_group.name
       aks_trident_version   = var.aks_trident_version
       anf_capacity_pool     = azurerm_netapp_pool.aks_anf_pool.name

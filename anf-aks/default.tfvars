@@ -1,6 +1,7 @@
 # Azure Settings
-sp_creds   = "~/.azure/azure-sp-tme-demo2-terraform.json"
-azr_region = "eastus"
+sp_creds    = "~/.azure/azure-sp-tme-demo2-terraform.json"
+azr_region  = "eastus"
+creator_tag = "mhaigh"
 
 # VNet Settings
 aks_vnet_cidr       = "10.20.0.0/22"

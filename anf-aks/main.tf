@@ -27,5 +27,6 @@ resource "azurerm_resource_group" "aks_resource_group" {
 
   tags = {
     environment = "${terraform.workspace}"
+    creator     = "${var.creator_tag}"
   }
 }

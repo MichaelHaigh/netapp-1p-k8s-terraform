@@ -7,6 +7,10 @@ variable "azr_region" {
   type        = string
   description = "The Azure region"
 }
+variable "creator_tag" {
+  type        = string
+  description = "The value to apply to the 'creator' key tag"
+}
 
 # VNet Settings
 variable "aks_vnet_cidr" {
