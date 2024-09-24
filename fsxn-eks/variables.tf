@@ -11,6 +11,10 @@ variable "availability_zones_count" {
   type        = string
   description = "The number of availability zones to deploy into"
 }
+variable "creator_tag" {
+  type        = string
+  description = "The value to apply to the 'creator' key tag"
+}
 
 # VPC Settings
 variable "eks_vpc_cidr" {

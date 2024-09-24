@@ -8,6 +8,7 @@ resource "aws_vpc" "eks_vpc" {
   tags = {
     Env                                                        = "eks-${terraform.workspace}",
     Name                                                       = "eks-${terraform.workspace}-vpc",
+    Creator                                                    = "${var.creator_tag}"
     "kubernetes.io/cluster/eks-${terraform.workspace}-cluster" = "shared"
   }
 }
@@ -24,16 +25,12 @@ resource "aws_subnet" "eks_public" {
     Region                                                     = var.aws_region,
     Env                                                        = "eks-${terraform.workspace}",
     Name                                                       = "eks-${terraform.workspace}-public-subnet",
+    Creator                                                    = "${var.creator_tag}"
     "kubernetes.io/cluster/eks-${terraform.workspace}-cluster" = "shared",
     "kubernetes.io/role/elb"                                   = 1
   }
 
   map_public_ip_on_launch = true
-
-  #provisioner "local-exec" {
-  #  when     = destroy
-  #  command  = "/opt/homebrew/bin/python3 scripts/del_k8s_resources.py ${self.tags.Region} ${terraform.workspace} ${count.index}"
-  #}
 }
 
 # Private subnets
@@ -47,6 +44,7 @@ resource "aws_subnet" "eks_private" {
   tags = {
     Env                                                        = "eks-${terraform.workspace}",
     Name                                                       = "eks-${terraform.workspace}-private-subnet",
+    Creator                                                    = "${var.creator_tag}"
     "kubernetes.io/cluster/eks-${terraform.workspace}-cluster" = "shared",
     "kubernetes.io/role/internal-elb"                          = 1
   }
@@ -57,8 +55,9 @@ resource "aws_internet_gateway" "eks_igw" {
   vpc_id = aws_vpc.eks_vpc.id
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-igw"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-igw"
+    Creator = "${var.creator_tag}"
   }
 
   depends_on = [aws_vpc.eks_vpc]
@@ -74,8 +73,9 @@ resource "aws_route_table" "eks_public_rt" {
   }
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-default-rt"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-default-rt"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -92,8 +92,9 @@ resource "aws_eip" "eks_nat_eip" {
   domain = "vpc"
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-ngw-ip"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-ngw-ip"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -103,8 +104,9 @@ resource "aws_nat_gateway" "eks_nat_gw" {
   subnet_id     = aws_subnet.eks_public[0].id
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-nat-gw"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-nat-gw"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -121,8 +123,9 @@ resource "aws_security_group" "eks_public_sg" {
   vpc_id = aws_vpc.eks_vpc.id
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-public-sg"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-public-sg"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -160,8 +163,9 @@ resource "aws_security_group" "eks_data_plane_sg" {
   vpc_id = aws_vpc.eks_vpc.id
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-data-plane-sg"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-data-plane-sg"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -201,8 +205,9 @@ resource "aws_security_group" "eks_control_plane_sg" {
   vpc_id = aws_vpc.eks_vpc.id
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-control-plane-sg"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-control-plane-sg"
+    Creator = "${var.creator_tag}"
   }
 }
 

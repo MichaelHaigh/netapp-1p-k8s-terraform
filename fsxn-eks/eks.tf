@@ -12,8 +12,9 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-cluster"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-cluster"
+    Creator = "${var.creator_tag}"
   }
 
   depends_on = [
@@ -28,8 +29,9 @@ resource "aws_security_group" "eks_cluster_sg" {
   vpc_id      = aws_vpc.eks_vpc.id
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-cluster-sg"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-cluster-sg"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -79,8 +81,9 @@ resource "aws_eks_node_group" "eks_ng" {
   }
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-node-group"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-node-group"
+    Creator = "${var.creator_tag}"
   }
 
   depends_on = [
@@ -123,6 +126,7 @@ resource "aws_security_group" "eks_nodes_sg" {
   tags = {
     Env                                                        = "eks-${terraform.workspace}",
     Name                                                       = "${terraform.workspace}-node-sg",
+    Creator                                                    = "${var.creator_tag}"
     "kubernetes.io/cluster/eks-${terraform.workspace}-cluster" = "owned"
   }
 }
@@ -161,8 +165,9 @@ resource "aws_eks_addon" "addons" {
   })
 
   tags = {
-    Env  = "eks-${terraform.workspace}",
-    Name = "eks-${terraform.workspace}-${each.value.name}"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-${each.value.name}"
+    Creator = "${var.creator_tag}"
   }
 }
 data "external" "thumbprint" {

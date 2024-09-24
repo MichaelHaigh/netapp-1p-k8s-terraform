@@ -60,8 +60,9 @@ resource "aws_fsx_ontap_file_system" "eksfs" {
   fsx_admin_password = random_string.fsx_password.result
   route_table_ids    = [aws_vpc.eks_vpc.default_route_table_id]
   tags = {
-    Env    = "eks-${terraform.workspace}",
-    Name   = "eks-${terraform.workspace}-fsxn"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-fsxn"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -71,8 +72,9 @@ resource "aws_fsx_ontap_storage_virtual_machine" "ekssvm" {
   svm_admin_password = random_string.svm_password.result
 
   tags = {
-    Env    = "eks-${terraform.workspace}",
-    Name   = "eks-${terraform.workspace}-svm"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-svm"
+    Creator = "${var.creator_tag}"
   }
 }
 
@@ -80,8 +82,9 @@ resource "aws_security_group" "fsxn_sg" {
   name_prefix = "security group for fsxn access"
   vpc_id      = aws_vpc.eks_vpc.id
   tags = {
-    Env    = "eks-${terraform.workspace}",
-    Name   = "eks-${terraform.workspace}-fsxn-sg"
+    Env     = "eks-${terraform.workspace}",
+    Name    = "eks-${terraform.workspace}-fsxn-sg"
+    Creator = "${var.creator_tag}"
   }
 }
 
