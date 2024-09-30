@@ -13,6 +13,14 @@ volume_snapshot() {
         kubectl -n kube-system apply -f ${vscrd_release}/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
         kubectl -n kube-system apply -f ${vscrd_release}/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
         sleep 15
+        kubectl apply -f - <<EOF
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-trident-snapclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+EOF
 }
 
 create_backend() {
