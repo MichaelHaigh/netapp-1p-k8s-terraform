@@ -27,8 +27,10 @@ eks_addons             = [
 ]
 
 # FSxN Settings
-fsxn_storage_capacity    = 2048
-fsxn_throughput_capacity = 512
+fsxn_storage_capacity           = 2048
+fsxn_throughput_capacity        = 512
+fsxn_disk_iops_mode             = "AUTOMATIC"
+fsxn_user_provisioned_disk_iops = null
 
 # Authorized Networks
 authorized_networks = [

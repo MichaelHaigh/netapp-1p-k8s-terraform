@@ -162,6 +162,34 @@ resource "aws_iam_role_policy_attachment" "AmazonEBSCSIDriverRoleAttachment" {
   role       = aws_iam_role.eks_ebs_csi.name
 }
 
+# EKS EFS-CSI IAM Role
+resource "aws_iam_role" "eks_efs_csi" {
+  name = "eks-${terraform.workspace}-efs-csi-role"
+
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": aws_iam_openid_connect_provider.cluster.arn
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    format("oidc.eks.${var.aws_region}.amazonaws.com/id/%s:aud", split("/", aws_iam_openid_connect_provider.cluster.arn)[3]): "sts.amazonaws.com",
+                    format("oidc.eks.${var.aws_region}.amazonaws.com/id/%s:sub", split("/", aws_iam_openid_connect_provider.cluster.arn)[3]): "system:serviceaccount:kube-system:efs-csi-*"
+                }
+            }
+        }
+    ]
+})
+}
+resource "aws_iam_role_policy_attachment" "AmazonEFSCSIDriverRoleAttachment" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+  role       = aws_iam_role.eks_efs_csi.name
+}
+
 
 # Data source for IAM Policy
 data "http" "iam_policy" {

@@ -57,8 +57,12 @@ resource "aws_fsx_ontap_file_system" "eksfs" {
   throughput_capacity = var.fsxn_throughput_capacity
   preferred_subnet_id = aws_subnet.eks_private[0].id
   security_group_ids  = [aws_security_group.fsxn_sg.id]
-  fsx_admin_password = random_string.fsx_password.result
-  route_table_ids    = [aws_vpc.eks_vpc.default_route_table_id]
+  fsx_admin_password  = random_string.fsx_password.result
+  route_table_ids     = [aws_vpc.eks_vpc.default_route_table_id]
+  disk_iops_configuration {
+    mode = var.fsxn_disk_iops_mode
+    iops = var.fsxn_user_provisioned_disk_iops
+  }
   tags = {
     Env     = "eks-${terraform.workspace}",
     Name    = "eks-${terraform.workspace}-fsxn"

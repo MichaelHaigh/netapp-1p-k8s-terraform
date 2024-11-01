@@ -158,7 +158,10 @@ resource "aws_eks_addon" "addons" {
   cluster_name             = aws_eks_cluster.eks_cluster.id
   addon_name               = each.value.name
   addon_version            = each.value.version
-  service_account_role_arn = each.value.name != "netapp_trident-operator" ? aws_iam_role.eks_node.arn : null
+  service_account_role_arn = (each.value.name == "netapp_trident-operator" ? null :
+                                (each.value.name == "aws-ebs-csi-driver" ? aws_iam_role.eks_ebs_csi.arn :
+                                    (each.value.name == "aws-efs-csi-driver" ? aws_iam_role.eks_efs_csi.arn :
+                                        aws_iam_role.eks_node.arn)))
 
   configuration_values = each.value.name != "netapp_trident-operator" ? null : jsonencode({
     cloudIdentity = "'eks.amazonaws.com/role-arn: ${aws_iam_role.eks_trident_csi.arn}'"

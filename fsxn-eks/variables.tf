@@ -68,6 +68,33 @@ variable "fsxn_throughput_capacity" {
   type        = number
   description = "The throughput capacity (in MBps) for the file system. Valid values are 128, 256, 512, 1024, 2048, and 4096"
 }
+variable "fsxn_disk_iops_mode" {
+  type        = string
+  description = "The mode for SSD IOPS, either 'AUTOMATIC' (3 IOPS per GiB of fsxn_storage_capacity) or 'USER_PROVISIONED' (must specify fsxn_user_provisioned_disk_iops)"
+  default     = "AUTOMATIC"
+
+  validation {
+    condition     = contains(["AUTOMATIC", "USER_PROVISIONED"], var.fsxn_disk_iops_mode)
+    error_message = "Valid values for fsxn_disk_iops_mode: (AUTOMATIC, USER_PROVISIONED)"
+  }
+}
+variable "fsxn_user_provisioned_disk_iops" {
+  type        = number
+  description = "The number of SSD IOPS when fsxn_disk_iops_mode is sest to 'USER_PROVISIONED' (must be greater than or equal to 3 IOPS per GiB of fsxn_storage_capacity)"
+  default     = null
+
+  validation {
+    condition = (
+      ( var.fsxn_user_provisioned_disk_iops == null && var.fsxn_disk_iops_mode == "AUTOMATIC" ) ||
+      ( var.fsxn_user_provisioned_disk_iops != null ?
+          var.fsxn_disk_iops_mode == "USER_PROVISIONED" &&
+            var.fsxn_user_provisioned_disk_iops >= var.fsxn_storage_capacity * 3 :
+          true
+      )
+    )
+    error_message = "if fsxn_disk_iops_mode is AUTOMATIC then fsxn_user_provisioned_disk_iops must be null, if fsxn_disk_iops_mode is USER_PROVISIONED then fsxn_user_provisioned_disk_iops must be >= 3 * fsxn_storage_capacity"
+  }
+}
 
 # Authorized Networks
 variable "authorized_networks" {
